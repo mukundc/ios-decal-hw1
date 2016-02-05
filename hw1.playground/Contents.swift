@@ -22,31 +22,34 @@ class Words {
 //: ### variables the same type? If not, why?
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: [EXPLAIN YOUR ANSWER HERE] They are not the same type. Those passed in to the init function are optionals, while those set to the instance are implicitly-unwrapped optional Strings, meaning the code will error if they are nil.
+
 
 
 //: ## Q2: Variable Types and Function Types
-    func arePalindromes(words: [String]) -> Bool {
+    class func arePalindromes(words: [String]) -> Bool {
         let reversedWords = words.map() {String($0.characters.reverse())}
         var numElements = words.count
         
-        for let i = 0; i < numElements; i++ {
+        for var i = 0; i < numElements; i++ {
             if words[i] != reversedWords[i] {
                 return false
             }
         }
+        return true
     }
 //: ### Why does the compiler dislike the **for loop**? Fix it.
 //: ### What else is wrong with this function? You may have to refer to (but **not**
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: [EXPLAIN YOUR ANSWER HERE] Cannot pass an immutable value to a mutating operator (i is changing in the for loop so it should be a var instead of a let constant). Also the function should be a class method based on how it is accessed at the bottom, and always return a boolean (so I added a return true).
+
 
 
 //: ## Q3: More Functions and Object Initialization
-    class func isAnagram() -> Bool {
-        var countLetters : [Character : Int]
+    func isAnagram() -> Bool {
+        var countLetters : [Character : Int] = [Character: Int]()
         var lenA = self.wordA.characters.count
         var lenB = self.wordB.characters.count
         
@@ -81,7 +84,7 @@ class Words {
             }
         }
         
-        return nil
+        return true
     }
 //: ### What is the problem with declaring **countLetters** as we do in **Line X**,
 //: ### and then using it in **Line Y**? Fix it (by only changing **Line X**).
@@ -89,7 +92,7 @@ class Words {
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: [EXPLAIN YOUR ANSWER HERE] countLetters was never initialized. Also the function should always return a boolean (added a return true in the last line), and it should be an instance method not a class method based on how it is used in the bottom.
     
     
 }
